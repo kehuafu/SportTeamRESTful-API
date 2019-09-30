@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.project.dao.OrderMapper" >
+
+<resultMap id="BaseResultMap" type="com.company.project.model.Order" >
+    <id column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="weixin_id" property="weiXinId" jdbcType="VARCHAR" />
+    <result column="weixin2_id" property="weiXin2Id" jdbcType="VARCHAR" />
+    <result column="order_state" property="orderState" jdbcType="INTEGER" />
+    <result column="myteamn_ame" property="myTeamName" jdbcType="VARCHAR" />
+    <result column="team_name" property="teamName" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+</resultMap>
+
+<sql id="sport_competition" >
+    order_id,weinxin_id,weixin2_id,order_state,myteam_name,team_name,time
+</sql>
+
+<insert id="insert" parameterType="com.company.project.dao.OrderMapper" >
+    insert into invite_list
+    (order_id,weixin_id,weixin2_id,order_state,myteamn_ame,team_name,time)
+    values (#{orderId,jdbcType=INTEGER}, #{weiXinId,jdbcType=VARCHAR}, #{weiXin2Id,jdbcType=VARCHAR},
+    #{orderState,jdbcType=INTEGER}, #{myTeamName,jdbcType=VARCHAR},
+    #{teamName,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR})
+</insert>
+
+<insert id="insertSelective" parameterType="com.company.project.dao.OrderMapper" >
+    insert into invite_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="id != null" >
+            order_id,
+        </if>
+        <if test="weiXinId != null" >
+            weixin_id,
+        </if>
+        <if test="weiXin2Id != null" >
+            weixin2_id,
+        </if>
+        <if test="orderState != null" >
+            order_state,
+        </if>
+        <if test="myTeamName != null" >
+            myteamn_ame,
+        </if>
+        <if test="teamName != null" >
+            team_name,
+        </if>
+        <if test="time != null" >
+            time,
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="id != null" >
+            #{orderId,jdbcType=INTEGER},
+        </if>
+        <if test="weiXinId != null" >
+            #{weiXinId,jdbcType=VARCHAR},
+        </if>
+        <if test="weiXin2Id != null" >
+            #{weiXin2Id,jdbcType=VARCHAR},
+        </if>
+        <if test="orderState != null" >
+            #{orderState,jdbcType=INTEGER},
+        </if>
+        <if test="myTeamName != null" >
+            #{myTeamName,jdbcType=VARCHAR},
+        </if>
+        <if test="teamName != null" >
+            #{teamName,jdbcType=VARCHAR},
+        </if>
+        <if test="time != null" >
+            #{time,jdbcType=VARCHAR},
+        </if>
+    </trim>
+</insert>
+
+<delete id="deleteByOrderId" parameterType="java.lang.Integer" >
+    delete from invite_list
+    where order_id = #{orderId,jdbcType=INTEGER} and order_state=2
+</delete>
+
+<select id="selectByID" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from invite_list
+    where order_id = #{orderId,jdbcType=INTEGER}
+</select>
+
+<select id="selectByState" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from invite_list
+    where order_state = #{orderState,jdbcType=INTEGER}
+</select>
+
+<select id="getAllOrder" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from invite_list
+</select>
+
+<update id="updateByID" parameterType="com.company.project.dao.OrderMapper" >
+    update invite_list
+    set weixin_id = #{weiXinId,jdbcType=VARCHAR},
+    weixin2_id = #{weiXin2Id,jdbcType=VARCHAR},
+    order_state = #{orderState,jdbcType=INTEGER},
+    myteamn_ame = #{myTeamName,jdbcType=VARCHAR},
+    team_name = #{teamName,jdbcType=VARCHAR},
+    time = #{time,jdbcType=VARCHAR}
+    where order_id = #{orderId,jdbcType=INTEGER}
+</update>
+
+<update id="updateByIDSelective" parameterType="com.company.project.dao.OrderMapper" >
+    update invite_list
+    <set>
+        <if test="weiXinId != null" >
+            weixin_id = #{weiXinId,jdbcType=VARCHAR},
+        </if>
+        <if test="weiXin2Id != null" >
+            weixin2_id = #{weiXin2Id,jdbcType=VARCHAR},
+        </if>
+        <if test="orderState != null" >
+            order_state = #{orderState,jdbcType=INTEGER},
+        </if>
+        <if test="myTeamName != null" >
+            myteam_name = #{myTeamName,jdbcType=VARCHAR},
+        </if>
+        <if test="teamName != null" >
+            team_name = #{teamName,jdbcType=VARCHAR},
+        </if>
+        <if test="time != null" >
+            time = #{time,jdbcType=VARCHAR},
+        </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+</update>
+
+<select id="getStateByID" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+    select order_state
+    from invite_list
+    where order_id = #{orderId,jdbcType=INTEGER}
+</select>
+
+<select id="getTimeById" resultType="java.lang.String" parameterType="java.lang.Integer" >
+    select time
+    from invite_list
+    where order_id = #{orderId,jdbcType=INTEGER}
+</select>
+
+</mapper>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.project.dao.WxMapper" >
+    <resultMap id="BaseResultMap" type="com.company.project.model.WxUser" >
+        <id column="id" property="WxId" jdbcType="INTEGER" />
+        <result column="moblie" property="Moblie" jdbcType="VARCHAR" />
+        <result column="userNo" property="UserNo" jdbcType="VARCHAR" />
+        <result column="openId" property="OpenId" jdbcType="VARCHAR" />
+        <result column="sessionKey" property="SessionKey" jdbcType="VARCHAR" />
+        <result column="unionId" property="UnionId" jdbcType="VARCHAR" />
+        <result column="loginTime" property="LoginTime" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="selectUserByOpenId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select *
+        from wxuser
+        where openId = #{orderState,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insertUser" parameterType="com.company.project.model.WxUser" >
+    insert into wxuser
+    (id,moblie,userNo,openId,sessionKey,unionId,loginTime)
+    values (#{WxId,jdbcType=INTEGER}, #{Moblie,jdbcType=VARCHAR}, #{UserNo,jdbcType=VARCHAR},
+    #{OpenId,jdbcType=VARCHAR}, #{SessionKey,jdbcType=VARCHAR},
+    #{UnionId,jdbcType=VARCHAR}, #{LoginTime,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateUserInfoById" parameterType="com.company.project.dao.OrderMapper" >
+        update wxuser
+        set moblie = #{Moblie,jdbcType=VARCHAR},
+            userNo = #{UserNo,jdbcType=VARCHAR},
+            openId = #{OpenId,jdbcType=VARCHAR},
+            sessionKey = #{SessionKey,jdbcType=VARCHAR},
+            unionId = #{UnionId,jdbcType=VARCHAR},
+            loginTime = #{LoginTime,jdbcType=VARCHAR}
+        where id = #{WxId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateSessionKeyByOpenId" parameterType="java.lang.String" >
+        update wxuser
+        set sessionKey = #{SessionKey,jdbcType=VARCHAR}
+        where openId = #{OpenId,jdbcType=VARCHAR}
+    </update>
+
+</mapper>
