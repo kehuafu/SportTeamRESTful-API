@@ -2,9 +2,7 @@ package com.company.project.dao;
 
 import java.util.List;
 
-import com.company.project.core.Mapper;
 import com.company.project.model.Order;
-import com.company.project.model.User;
 
 public interface OrderMapper{
     //添加订场信息
@@ -23,6 +21,8 @@ public interface OrderMapper{
     int updateByID(Order order);
     //根据ID更新约场信息（如果存在空值就跳过该属性）
     int updateByIDSelective(Order order);
+    //根据ID更新约场信息（只更新状态值）
+    int updateByIDSelectiveOfSate(Order order);
     //根据ID获取该约场信息的状态
     Integer getStateByID(int orderId);
     //根据ID获取约场信息时间

@@ -1,32 +1,44 @@
 package com.company.project.service;
 
 import java.util.List;
+
 import com.company.project.model.Order;
 
 public interface OrderService {
     /**
      * 添加一个约场信息
+     *
      * @param order 约场信息
      */
-    public void addOrder(Order order);
+    void addOrder(Order order);
 
     /**
      * 更新约场信息
+     *
      * @param order 约场信息
      */
-    public void updateOrder(Order order);
+    Integer updateOrder(Order order);
+
+    /**
+     * 更新约场信息
+     * 即更新状态
+     * @param order 约场信息
+     */
+    Integer updateOrderOfSate(Order order);
 
     /**
      * 获取状态接口
-     * @param order 约场信息
+     *
+     * @param orderId 约场信息
      */
-    public Integer getOrderStateById(int orderId);
+    Integer getOrderStateById(int orderId);
 
     /**
      * 删除约场信息（撤销接口）
-     * @param order 约场信息
+     *
+     * @param orderId 约场信息
      */
-    public void deleteOrder(Integer orderId);
+    Integer deleteOrder(Integer orderId);
 
     /**
      * 微信获取授权接口
@@ -35,25 +47,37 @@ public interface OrderService {
 
     /**
      * 获取时间接口
+     *
      * @param
      */
-    public String getTimeById(Integer orderId);
+    String getTimeById(Integer orderId);
 
     /**
      * 获取对方发起信息接口
+     *
      * @return list
      */
-    public List<Order> getOtherOrder();
+    List<Order> getOtherOrder();
 
     /**
      * 获取我的发起信息接口
+     *
      * @return list
      */
-    public List<Order> getMyOrder();
+    List<Order> getMyOrder();
 
     /**
      * 获取全部信息
+     *
      * @return list
      */
-    public List<Order> getAll();
+    List<Order> getAll();
+
+    /**
+     * 根据order_id查询到当前的order
+     *
+     * @param orderId
+     * @return
+     */
+    Order selectByID(Integer orderId);
 }

@@ -17,9 +17,14 @@ public class OrderServiceImpl implements OrderService {
         orderDao.insert(order);
     }
 
-    public void updateOrder(Order order) {
+    public Integer updateOrder(Order order) {
         // TODO Auto-generated method stub
-        orderDao.updateByIDSelective(order);
+        return orderDao.updateByIDSelective(order);
+    }
+
+    @Override
+    public Integer updateOrderOfSate(Order order) {
+        return orderDao.updateByIDSelectiveOfSate(order);
     }
 
     public Integer getOrderStateById(int orderId) {
@@ -27,9 +32,9 @@ public class OrderServiceImpl implements OrderService {
         return this.orderDao.getStateByID(orderId);
     }
 
-    public void deleteOrder(Integer orderId) {
+    public Integer deleteOrder(Integer orderId) {
         // TODO Auto-generated method stub
-        orderDao.deleteByOrderId(orderId);
+        return orderDao.deleteByOrderId(orderId);
     }
 
     public List<Order> getOtherOrder() {
@@ -47,6 +52,11 @@ public class OrderServiceImpl implements OrderService {
 
     public List<Order> getAll() {
         return this.orderDao.getAllOrder();
+    }
+
+    @Override
+    public Order selectByID(Integer orderId) {
+        return orderDao.selectByID(orderId);
     }
 
     @Override

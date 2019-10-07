@@ -7,18 +7,25 @@ import com.company.project.service.WxService;
 import com.company.project.core.WXAppletUserInfo;
 import com.company.project.configurer.WxConfig;
 import com.company.project.dao.WxMapper;
+import com.company.project.core.AbstractService;
 import com.company.project.core.WxSession;
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+@Primary
 @Service
 @Transactional
-public class WxServiceImpl implements WxService {
-    private Logger logger = LoggerFactory.getLogger(WxServiceImpl.class);
-    @Autowired
+public class WxServiceImpl extends AbstractService<WxUser> implements WxService {
+    @Resource
+    private WxMapper wxMapper;
+    /*private Logger logger = LoggerFactory.getLogger(WxServiceImpl.class);
+    @Resource
     private WxMapper wxMapper;
     @Autowired
     private WxConfig wxConfig;
@@ -50,11 +57,13 @@ public class WxServiceImpl implements WxService {
 
     @Override
     public WxUser selectUserByOpenId(String openId) {
-        return null;
+        return wxMapper.selectUserByOpenId(openId);
     }
 
     @Override
     public void saveUserInfo(JSONObject userInfo) {
-
-    }
+        WxUser user=new WxUser((String) userInfo.get("moblie"),(String) userInfo.get("userNo"),(String) userInfo.get("openId"),
+                (String) userInfo.get("sessionKey"),(String) userInfo.get("unionId"),(String) userInfo.get("loginTime"));
+        wxMapper.updateUserInfoById(user);
+    }*/
 }

@@ -2,42 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.company.project.dao.WxMapper" >
     <resultMap id="BaseResultMap" type="com.company.project.model.WxUser" >
-        <id column="id" property="WxId" jdbcType="INTEGER" />
-        <result column="moblie" property="Moblie" jdbcType="VARCHAR" />
-        <result column="userNo" property="UserNo" jdbcType="VARCHAR" />
-        <result column="openId" property="OpenId" jdbcType="VARCHAR" />
-        <result column="sessionKey" property="SessionKey" jdbcType="VARCHAR" />
-        <result column="unionId" property="UnionId" jdbcType="VARCHAR" />
-        <result column="loginTime" property="LoginTime" jdbcType="VARCHAR" />
+        <id column="wx_openid" property="OpenId" jdbcType="VARCHAR" />
+        <result column="token" property="Token" jdbcType="VARCHAR" />
+        <result column="wx_no" property="WxNo" jdbcType="VARCHAR" />
+        <result column="last_date" property="Time" jdbcType="VARCHAR" />
     </resultMap>
 
     <select id="selectUserByOpenId" resultMap="BaseResultMap" parameterType="java.lang.String" >
         select *
-        from wxuser
-        where openId = #{orderState,jdbcType=VARCHAR}
+        from wx_user
+        where wx_openid = #{orderState,jdbcType=VARCHAR}
     </select>
 
     <insert id="insertUser" parameterType="com.company.project.model.WxUser" >
-    insert into wxuser
-    (id,moblie,userNo,openId,sessionKey,unionId,loginTime)
-    values (#{WxId,jdbcType=INTEGER}, #{Moblie,jdbcType=VARCHAR}, #{UserNo,jdbcType=VARCHAR},
-    #{OpenId,jdbcType=VARCHAR}, #{SessionKey,jdbcType=VARCHAR},
-    #{UnionId,jdbcType=VARCHAR}, #{LoginTime,jdbcType=VARCHAR})
+    insert into wx_user
+    (wx_openid,token,wx_no,last_date)
+    values (#{OpenId,jdbcType=VARCHAR}, #{Token,jdbcType=VARCHAR}, #{WxNo,jdbcType=VARCHAR},
+    #{Time,jdbcType=VARCHAR})
     </insert>
 
-    <update id="updateUserInfoById" parameterType="com.company.project.dao.OrderMapper" >
-        update wxuser
-        set moblie = #{Moblie,jdbcType=VARCHAR},
-            userNo = #{UserNo,jdbcType=VARCHAR},
-            openId = #{OpenId,jdbcType=VARCHAR},
-            sessionKey = #{SessionKey,jdbcType=VARCHAR},
-            unionId = #{UnionId,jdbcType=VARCHAR},
-            loginTime = #{LoginTime,jdbcType=VARCHAR}
-        where id = #{WxId,jdbcType=INTEGER}
+    <update id="updateUserInfoById" parameterType="com.company.project.model.WxUser" >
+        update wx_user
+        set token = #{Token,jdbcType=VARCHAR},
+            wx_no = #{WxNo,jdbcType=VARCHAR},
+            last_date = #{Time,jdbcType=VARCHAR},
+        where wx_openid = #{OpenId,jdbcType=VARCHAR}
     </update>
 
     <update id="updateSessionKeyByOpenId" parameterType="java.lang.String" >
-        update wxuser
+        update wx_user
         set sessionKey = #{SessionKey,jdbcType=VARCHAR}
         where openId = #{OpenId,jdbcType=VARCHAR}
     </update>

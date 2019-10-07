@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.project.dao.InfoMapper">
+  <resultMap id="BaseResultMap" type="com.company.project.model.Info">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="OrdeID" jdbcType="INTEGER" property="ordeid" />
+    <result column="openId" jdbcType="VARCHAR" property="openid" />
+    <result column="MyWechat" jdbcType="VARCHAR" property="mywechat" />
+    <result column="State" jdbcType="INTEGER" property="state" />
+    <result column="MyTeam" jdbcType="VARCHAR" property="myteam" />
+    <result column="OpposingTeam" jdbcType="VARCHAR" property="opposingteam" />
+    <result column="OpposingWechat" jdbcType="VARCHAR" property="opposingwechat" />
+    <result column="StratTime" jdbcType="VARCHAR" property="strattime" />
+    <result column="EndTime" jdbcType="VARCHAR" property="endtime" />
+  </resultMap>
+    <sql id="Base_Column_List">
+  MyWechat OrdeID State MyTeam OpposingTeam OpposingWechat StratTime EndTime
+  </sql>
+    <select id="selectOrde" resultMap="BaseResultMap">
+    select * from info where MyWechat=#{MyWechat} and State=#{State}
+  </select>
+
+    <update id="updateOrde">
+    update info set State=4 where OrdeID=#{OrdeID}
+  </update>
+</mapper>
