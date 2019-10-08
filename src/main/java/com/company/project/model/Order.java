@@ -23,6 +23,8 @@ public class Order {
     private String time;
     @Column(name = "token")
     private String token;
+    @Column(name = "formId")
+    private String formId;
 
     public Order() {
 
@@ -108,5 +110,13 @@ public class Order {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getFormId() {
+        return formId;
+    }
+
+    public void setFormId(String formId) {
+        this.formId = formId;
     }
 }

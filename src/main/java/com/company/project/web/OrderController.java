@@ -45,6 +45,7 @@ public class OrderController {
         String myTeam = request.getParameter("myTeamName");
         String team2 = request.getParameter("teamName");
         String timeTmp = request.getParameter("time");
+        String formId = request.getParameter("formId");
         //Date time = new Date();
 //        order.setOrderId(id);
         order.setOpenId(openId);
@@ -54,6 +55,7 @@ public class OrderController {
         order.setMyTeamName(myTeam);
         order.setTeamName(team2);
         order.setTime(timeTmp);
+        order.setFormId(formId);
         orderService.addOrder(order);
         list.add(order);
         return ResultGenerator.genSuccessResult(list);
@@ -157,14 +159,16 @@ public class OrderController {
         int id = Integer.parseInt(request.getParameter("id"));
         Order order = orderService.selectByID(id);
         int orderState = Integer.parseInt(request.getParameter("orderState"));
+        String formId = request.getParameter("formId");
         order.setOrderState(orderState);
+        order.setFormId(formId);
         int result = orderService.updateOrderOfSate(order);
         if (result == 1 && orderState == 4) {
             return ResultGenerator.genSuccessResult("同意");
-        } else if (orderState == 0) {
+        } else if (result == 1 && orderState == 0) {
             return ResultGenerator.genSuccessResult("拒绝");
         } else {
-            return ResultGenerator.genFailResult("确认失败");
+            return ResultGenerator.genFailResult("失败");
         }
     }
 
