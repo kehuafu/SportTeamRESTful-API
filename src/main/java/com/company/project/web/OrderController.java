@@ -191,4 +191,18 @@ public class OrderController {
             return ResultGenerator.genFailResult("撤销失败");
         }
     }
+    /**
+     * 根据状态值判断是否已确认邀请
+     *
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("isSure")
+    @ResponseBody
+    public Result isSure(HttpServletRequest request, Model model) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        int state = orderService.getOrderStateById(id);
+        return ResultGenerator.genSuccessResult(state);
+    }
 }
